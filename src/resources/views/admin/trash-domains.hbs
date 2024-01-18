@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="mt-4">
+      <div>
+        <a href="/admin/stored/domain"> Domains List</a>
+        <h3>My deleted domains</h3>
+      </div>  
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col"></th>
+                <th scope="col">Domain name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Description</th>
+                <th scope="col col">Delete at</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each domains}}
+                <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.title}}</td>
+                <td>{{this.image}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.createAt}}</td>
+                <td>
+                    <a href="" class="btn btn-link btn-restore text-decoration-none" data-id="{{this._id}}">Restore</a><br>
+                    <a href="" class="btn btn-link text-decoration-none" data-toggle="modal"  data-target="#delete-domain-modal" data-id="{{this._id}}">Empty trash</a>
+                </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="5" class="text-center">
+                    Trash is empty.
+                    <a href="/admin/stored/domain">Domains List</a>
+                  </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="delete-domain-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete domain?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>This action can't restore. Are you sure you would like to delete this domain?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="btn-delete-domain" type="button" class="btn btn-danger" >Delete</button>
+      
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form name= "delete-domain-form" method="POST" ></form>
+<form name= "restore-domain-form" method="POST"></form>
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){
+    var domainId;
+    var deleteForm = document.forms['delete-domain-form'];
+    var restoreForm = document.forms['restore-domain-form'];
+    var btnDeleteDomain= document.getElementById('btn-delete-domain')
+    var restoreBtn = $('.btn-restore')
+
+    $('#delete-domain-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+          domainId = button.data('id') 
+      })
+   
+    btnDeleteDomain.onclick = function () {
+                            deleteForm.action = '/domain/' + domainId + '/force?_method=DELETE';
+                            deleteForm.submit();
+                        };
+
+    restoreBtn.click(function (e) {
+      e.preventDefault();
+
+      var domainId = $(this).data('id');
+
+      restoreForm.action = '/domain/' + domainId + '/restore?_method=PATCH';
+      restoreForm.submit();
+      })
+    })
+
+
+</script>

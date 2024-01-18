@@ -1,0 +1,26 @@
+  
+  <div class="container">
+
+      <h1 class="heading-1">OBSTETRIC</h1>
+      <div class="sub-heading">
+        
+      </div>
+                <div class="row">
+                    {{#each obstetrics}}
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card1 card-top-item">
+                            <a href="/obstetric/{{this.slug}}"><img class="card-img-top" src="{{this.image}}" alt="Card image cap"></a>
+                            <div class="card-body">
+                              <h5><a href="/obstetric/{{this.slug}}" class="card-title">{{this.title}}</a></h5>
+                                <p class="card-text">{{this.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                
+                </div>
+
+
+</div>
+
+

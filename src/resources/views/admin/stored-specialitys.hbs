@@ -1,0 +1,138 @@
+<div name="container-form" class="container">
+    <div class="mt-4">
+      <a href="/admin/trash/speciality">Trash ({{deletedCount}})</a>
+        <h3>My specialitys</h3>
+          <div class="align-items-center mt-4 d-flex ">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+              <label class="form-check-label" for="defaultCheck1">
+              Choose all
+              </label>
+            </div>
+            <select class="form-control form-control-sm w-25 check-box" name="action" id="" >
+              <option class="text-center">-- Choose --</option>
+              <option value="delete">Delete</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <button class="btn1 btn-primary1 btn-sm check-all-submit-btn border-0 disabled">Effect</button>
+            </div>
+        <table class="table" >
+            <thead>
+                <tr>
+                <th scope="col" colspan="2"></th>
+                <th scope="col"> Speciality</th>
+                <th scope="col">Image</th>
+       
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each specialitys}}
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="specialitysIds[]" value="{{this._id}}">
+                      <label class="form-check-label"  for="checkbox-all">
+                      </label>
+                    </div>
+                  </td>
+
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.title}}</td>
+                <td>{{this.image}}</td>
+                <td>
+                    <a href="/speciality/{{this._id}}/edit">Edit</a>
+                    <a href="" data-toggle="modal"  data-target="#delete-speciality-modal" data-id="{{this._id}}">Delete</a>
+                </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="5" class="text-center">
+                    No data.
+                    <a href="/speciality/create">Create speciality</a>
+                  </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<div id="delete-speciality-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete speciality?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you would like to delete this speciality?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="btn-delete-speciality" type="button" class="btn btn-danger" >Delete</button>
+      
+        
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form name= "delete-speciality-form" method="POST" ></form>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){
+    var specialityId;
+    var deleteForm = document.forms['delete-speciality-form'];
+    var containerForm = document.forms['container-form'];
+    var btnDeleteSpeciality= document.getElementById('btn-delete-speciality');
+    var checkboxAll = $('#checkbox-all');
+    var specialityItemCheckbox = $('input[name="specialitysIds[]"]');
+    var checkAllSubmitBtn = $('.check-all-submit-btn');
+
+    $('#delete-speciality-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+          specialityId = button.data('id') 
+      })
+   
+    btnDeleteSpeciality.onclick = function () {
+                            deleteForm.action = '/speciality/' + specialityId + '?_method=DELETE';
+                            deleteForm.submit();
+                        };
+
+        {{!-- Checkbox all clicked --}}
+    checkboxAll. change(function () {
+        var isCheckedAll = $(this).prop('checked');
+        specialityItemCheckbox.prop("checked", isCheckedAll);
+    })
+
+    {{!-- speciality item checkbox changed --}}
+    specialityItemCheckbox.change(function () { 
+      var isCheckedAll = specialityItemCheckbox.length === $('input[name="specialitysIds[]"]:checked').length;
+      checkboxAll.prop('checked', isCheckedAll);
+  })
+    checkAllSubmitBtn.click(function (e) {
+      e.preventDefault();
+      var isSubmit = !$(this).hasClass('disabled');
+      if (isSubmit) {
+
+      } 
+
+    })
+    {{!-- function renderCheckAllSubmitBtn() {
+        var checkedCount = $('input[name="specialityIds[]"]:checked').length;
+        if (checkedCount > 0) {
+          checkAllSubmitBtn.removeClass('disabled');
+        } else {
+          checkAllSubmitBtn.addClass('disabled');
+        }
+    } --}}
+})
+</script>

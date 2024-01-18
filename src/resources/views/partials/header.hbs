@@ -1,0 +1,189 @@
+<header>
+    <div class="container">
+      {{#if isLoggedIn}}  
+
+            {{#if isAdmin}}
+                <nav class="navbar navbar-expand-lg ">
+                <a class="navbar-brand1" href="/">HEALTH CARE</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto navbar-brand">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Health facilites
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/">Hue Central Hospital</a>
+                    <a class="dropdown-item" href="/">Hue Central International Hospital</a>
+                    <a class="dropdown-item" href="/">Thua Thien Hue Traditional Medicine Hospital</a>
+                    <a class="dropdown-item" href="/">Thua Thien Hue Lung Hospital</a>
+                </li>
+
+      
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Health advices
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    
+                    <a class="dropdown-item" href="/surgery">Surgery</a>
+              
+                    <a class="dropdown-item" href="/obstetric">Obstetrics</a>
+                    <a class="dropdown-item" href="/pediatric">Pediatrics</a>
+                    <a class="dropdown-item" href="/internalmedicine">Internal medicine</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="/contact">Contact us</a>
+                </li>
+         
+        {{!-- {{#if isLoggedIn}}  
+
+            {{#if isAdmin}} --}}
+                  <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{user.name}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/news/create">Create article</a>
+                          <a class="dropdown-item" href="/hospital/create">Create hospital</a>
+                          <a class="dropdown-item" href="/doctor/create">Create doctor</a>
+                          <a class="dropdown-item" href="/pediatric/create">Create pediatric</a>
+                          <a class="dropdown-item" href="/speciality/create">Create speciality</a>
+                          <a class="dropdown-item" href="/domain/create">Create domain</a>
+                          <a class="dropdown-item" href="/surgery/create">Create news (surgery) </a>
+                          <a class="dropdown-item" href="/pediatric/create">Create news (pediatric) </a>
+                          <a class="dropdown-item" href="/obstetric/create">Create news (obstetric) </a>
+                          <a class="dropdown-item" href="/internalmedicine/create">Create news (internal medicine) </a>
+                          <a class="dropdown-item" href="/admin/stored/news">My article</a>
+                          <a class="dropdown-item" href="/admin/stored/hospital">My hospital</a>
+                          <a class="dropdown-item" href="/admin/stored/doctor">My doctor</a>
+                          <a class="dropdown-item" href="/admin/stored/speciality">My speciality</a>
+                          <a class="dropdown-item" href="/admin/stored/domain">My domain</a>
+                          <a class="dropdown-item" href="/admin/stored/surgery">My news (surgery)</a>
+                          <a class="dropdown-item" href="/admin/stored/pediatric">My news (pediatric)</a>
+                          <a class="dropdown-item" href="/admin/stored/obstetric">My news (obstetric)</a>
+                          <a class="dropdown-item" href="/admin/stored/internalmedicine">My news (internal medicine)</a>
+                          
+                          <div class="dropdown-divider"></div>
+                          <form method="POST" action="/logout">
+                          <button class="dropdown-item">Log out</button>
+                          </form>
+                        </div>
+                </li>
+
+                  {{else}}
+                  <nav class="navbar navbar-expand-lg ">
+                  <a class="navbar-brand1" href="/user">HEALTH CARE</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto navbar-brand">
+                      <li class="nav-item active">
+                          <a class="nav-link" href="/user">Home<span class="sr-only">(current)</span></a>
+                      </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Health facilites
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/">Hue Central Hospital</a>
+                      <a class="dropdown-item" href="/">Hue Central International Hospital</a>
+                      <a class="dropdown-item" href="/">Thua Thien Hue Traditional Medicine Hospital</a>
+                      <a class="dropdown-item" href="/">Thua Thien Hue Lung Hospital</a>
+                  </li>
+
+      
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Health advices
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        
+                        <a class="dropdown-item" href="/surgery">Surgery</a>
+                  
+                        <a class="dropdown-item" href="/obstetric">Obstetrics</a>
+                        <a class="dropdown-item" href="/pediatric">Pediatrics</a>
+                        <a class="dropdown-item" href="/internalmedicine">Internal medicine</a>
+                    </li>
+
+                        <li class="nav-item">
+                          <a class="nav-link" href="/contact">Contact us</a>
+                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  {{user.name}}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <a class="dropdown-item" href="/profile">My account</a>
+                                  {{!-- <a class="dropdown-item" href="/profile/edit">Update profile</a> --}}
+                                  {{!-- <a class="dropdown-item" href="/change-password">Change password</a> --}}
+                                  <div class="dropdown-divider"></div>
+                                  <form method="POST" action="/logout">
+                                  <button class="dropdown-item">Log out</button>
+                                  </form> 
+                                </div>
+                            </li>
+                    {{/if}}
+
+                    {{else}}
+                          <nav class="navbar navbar-expand-lg ">
+                              <a class="navbar-brand1" href="/">HEALTH CARE</a>
+                              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                  <span class="navbar-toggler-icon"></span>
+                              </button>
+
+                              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                  <ul class="navbar-nav mr-auto navbar-brand">
+                                  <li class="nav-item active">
+                                      <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                                  </li>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Health facilites
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <a class="dropdown-item" href="/news/create">Hue Central Hospital</a>
+                                  <a class="dropdown-item" href="/hospital/create">Hue Central International Hospital</a>
+                                  <a class="dropdown-item" href="/doctor/create">Thua Thien Hue Traditional Medicine Hospital</a>
+                                  <a class="dropdown-item" href="/speciality/create">Thua Thien Hue Lung Hospital</a>
+                              </li>
+
+                    
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Health advices
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  
+                                  <a class="dropdown-item" href="/surgery">Surgery</a>
+                            
+                                  <a class="dropdown-item" href="/obstetric">Obstetrics</a>
+                                  <a class="dropdown-item" href="/pediatric">Pediatrics</a>
+                                  <a class="dropdown-item" href="/internalmedicine">Internal medicine</a>
+                              </li>
+
+                              <li class="nav-item">
+                                  <a class="nav-link" href="/contact">Contact us</a>
+                              </li>
+                              <button class="btn btn-light" onclick="location.href='/login'">Login</button>
+                      
+                              <button class="btn btn-dark" onclick="location.href='/register'">Sign up</button>
+                    {{/if}}
+  </div>
+</nav>
+</div>
+</header>
+
+
+
+
+

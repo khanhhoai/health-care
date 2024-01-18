@@ -1,0 +1,149 @@
+<div name="container-form" class="container">
+    <div class="mt-4">
+      <a href="/admin/trash/doctor">Trash ({{deletedCount}})</a>
+        <h3>My doctors</h3>
+          <div class="align-items-center mt-4 d-flex ">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+              <label class="form-check-label" for="defaultCheck1">
+              Choose all
+              </label>
+            </div>
+            <select class="form-control form-control-sm w-25 check-box" name="action" id="" >
+              <option class="text-center">-- Choose --</option>
+              <option value="delete">Delete</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <button class="btn1 btn-primary1 btn-sm check-all-submit-btn border-0 disabled">Effect</button>
+            </div>
+        <table class="table" >
+            <thead>
+                <tr>
+                <th scope="col" colspan="2"></th>
+                <th scope="col"> Name</th>
+                <th scope="col">Speciality</th>
+                <th scope="col">Tel</th>
+                <th scope="col">Image</th>
+                <th scope="col">Address</th>
+                <th scope="col">Map</th>
+                <th scope="col">Schedule</th>
+                <th scope="col">Presentation</th>
+       
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each doctors}}
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="doctorsIds[]" value="{{this._id}}">
+                      <label class="form-check-label"  for="checkbox-all">
+                      </label>
+                    </div>
+                  </td>
+
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.speciality}}</td>
+                <td>{{this.tel}}</td>
+                <td>{{this.image}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.map}}</td>
+                <td>{{this.schedule}}</td>
+                <td>{{this.presentation}}</td>
+                <td>
+                    <a href="/doctor/{{this._id}}/edit">Edit</a>
+                    <a href="" data-toggle="modal"  data-target="#delete-doctor-modal" data-id="{{this._id}}">Delete</a>
+                </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="5" class="text-center">
+                    No data.
+                    <a href="/doctor/create">Create doctor</a>
+                  </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<div id="delete-doctor-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete doctor?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you would like to delete this doctor?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="btn-delete-doctor" type="button" class="btn btn-danger" >Delete</button>
+      
+        
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{{!-- Delete hidden form --}}
+<form name= "delete-doctor-form" method="POST" ></form>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){
+    var doctorId;
+    var deleteForm = document.forms['delete-doctor-form'];
+    var containerForm = document.forms['container-form'];
+    var btnDeleteDoctor= document.getElementById('btn-delete-doctor');
+    var checkboxAll = $('#checkbox-all');
+    var doctorItemCheckbox = $('input[name="doctorsIds[]"]');
+    var checkAllSubmitBtn = $('.check-all-submit-btn');
+
+    $('#delete-doctor-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+          doctorId = button.data('id') 
+      })
+   
+    btnDeleteDoctor.onclick = function () {
+                            deleteForm.action = '/doctor/' + doctorId + '?_method=DELETE';
+                            deleteForm.submit();
+                        };
+
+        {{!-- Checkbox all clicked --}}
+    checkboxAll. change(function () {
+        var isCheckedAll = $(this).prop('checked');
+        doctorItemCheckbox.prop("checked", isCheckedAll);
+    })
+
+    {{!-- doctor item checkbox changed --}}
+    doctorItemCheckbox.change(function () { 
+      var isCheckedAll = doctorItemCheckbox.length === $('input[name="doctorsIds[]"]:checked').length;
+      checkboxAll.prop('checked', isCheckedAll);
+  })
+    checkAllSubmitBtn.click(function (e) {
+      e.preventDefault();
+      var isSubmit = !$(this).hasClass('disabled');
+      if (isSubmit) {
+
+      } 
+
+    })
+    {{!-- function renderCheckAllSubmitBtn() {
+        var checkedCount = $('input[name="doctorIds[]"]:checked').length;
+        if (checkedCount > 0) {
+          checkAllSubmitBtn.removeClass('disabled');
+        } else {
+          checkAllSubmitBtn.addClass('disabled');
+        }
+    } --}}
+})
+</script>

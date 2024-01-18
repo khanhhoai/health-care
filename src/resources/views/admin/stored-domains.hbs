@@ -1,0 +1,137 @@
+<div name="container-form" class="container">
+    <div class="mt-4">
+      <a href="/admin/trash/domain">Trash ({{deletedCount}})</a>
+        <h3>My domains</h3>
+          <div class="align-items-center mt-4 d-flex ">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+              <label class="form-check-label" for="defaultCheck1">
+              Choose all
+              </label>
+            </div>
+            <select class="form-control form-control-sm w-25 check-box" name="action" id="" >
+              <option class="text-center">-- Choose --</option>
+              <option value="delete">Delete</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <button class="btn1 btn-primary1 btn-sm check-all-submit-btn border-0 disabled">Effect</button>
+            </div>
+        <table class="table" >
+            <thead>
+                <tr>
+                <th scope="col" colspan="2"></th>
+                <th scope="col"> Domain</th>
+                <th scope="col">Image</th>
+       
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each domains}}
+                <tr>
+                  <td>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" name="domainsIds[]" value="{{this._id}}">
+                      <label class="form-check-label"  for="checkbox-all">
+                      </label>
+                    </div>
+                  </td>
+
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.title}}</td>
+                <td>{{this.image}}</td>
+                <td>
+                    <a href="/domain/{{this._id}}/edit">Edit</a>
+                    <a href="" data-toggle="modal"  data-target="#delete-domain-modal" data-id="{{this._id}}">Delete</a>
+                </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="5" class="text-center">
+                    No data.
+                    <a href="/domain/create">Create domain</a>
+                  </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<div id="delete-domain-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete domain?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you would like to delete this domain?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="btn-delete-domain" type="button" class="btn btn-danger" >Delete</button>
+      
+        
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{{!-- Delete hidden form --}}
+<form name= "delete-domain-form" method="POST" ></form>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){
+    var domainId;
+    var deleteForm = document.forms['delete-domain-form'];
+    var containerForm = document.forms['container-form'];
+    var btnDeleteDomain= document.getElementById('btn-delete-domain');
+    var checkboxAll = $('#checkbox-all');
+    var domainItemCheckbox = $('input[name="domainsIds[]"]');
+    var checkAllSubmitBtn = $('.check-all-submit-btn');
+
+    $('#delete-domain-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+          domainId = button.data('id') 
+      })
+   
+    btnDeleteDomain.onclick = function () {
+                            deleteForm.action = '/domain/' + domainId + '?_method=DELETE';
+                            deleteForm.submit();
+                        };
+
+        {{!-- Checkbox all clicked --}}
+    checkboxAll. change(function () {
+        var isCheckedAll = $(this).prop('checked');
+        domainItemCheckbox.prop("checked", isCheckedAll);
+    })
+
+    {{!-- domain item checkbox changed --}}
+    domainItemCheckbox.change(function () { 
+      var isCheckedAll = domainItemCheckbox.length === $('input[name="domainsIds[]"]:checked').length;
+      checkboxAll.prop('checked', isCheckedAll);
+  })
+    checkAllSubmitBtn.click(function (e) {
+      e.preventDefault();
+      var isSubmit = !$(this).hasClass('disabled');
+      if (isSubmit) {
+
+      } 
+
+    })
+    {{!-- function renderCheckAllSubmitBtn() {
+        var checkedCount = $('input[name="domainIds[]"]:checked').length;
+        if (checkedCount > 0) {
+          checkAllSubmitBtn.removeClass('disabled');
+        } else {
+          checkAllSubmitBtn.addClass('disabled');
+        }
+    } --}}
+})
+</script>

@@ -1,0 +1,38 @@
+<div class="container">
+    <p>{{counts}} result(s)</p>
+    <div class="row g-0 bg-body-secondary position-relative background-color">
+    {{#each doctors}}
+    {{!-- <form method="GET" action="/search/find/{{doctors.slug}}?_method=GET"></form> --}}
+    <div class="col-md-6 mb-md-0 p-md-4">
+    <img src="{{this.image}}" class="rounded-circle  img-fluid float-left" 
+        width="200" height="200" alt="...">
+    </div>
+    <div class="col-md-6 p-4 ps-md-0 ">
+        <h5 class="mt-0 couleur">{{this.name}}</h5>
+        <h6 class="speciality">{{this.speciality}}</h6>
+        <p class="detailaddress" data-address="{{this.address}}">{{this.address}}</p>
+        <a href="/search/find/{{this.slug}}" class="stretched-link">More details</a>
+    </div>
+  {{/each}}
+    </div>
+    
+</div>
+
+<script>
+
+ const addreses = document.querySelectorAll(".detailaddress");
+      
+    // Loop through each element with the class "detailpresentation"
+    addreses.forEach((element) => {
+    // Get the value of the data-presentation attribute
+    const detailAddress = element.dataset.address;
+        
+    // Example: Manipulate the content of each element
+    element.innerHTML = detailAddress;
+    return element.textContent || element.innerText || '';
+    });
+
+
+
+</script>
+

@@ -1,0 +1,155 @@
+<section class="index">
+        <div class="container">
+            <div class="search-container container-custom">
+                <div class="search">
+                    <div class="input">
+                        <form class="enterForm" action="/search/find" method="POST">
+                            <label for="search"></label><input  type="search" id="searchInput" name="key" placeholder="Finding Doctors and Dentists Near You" class="type-box">
+                            <button id="addbtn" type="submit" class="search-doctor"><span class="icon"><ion-icon name="search-outline"></ion-icon></span></button>
+                        </form>
+                    </div>   
+                </div>
+                
+                <div class = "user-cards user-cards1">
+            
+                    {{#each doctors}}
+                    <div class="cards card-box hide" onclick="location.href='/search/find/{{this.slug}}'" >
+                        <div class="name dentist1 doctor "  data-name="{{this.name}}">{{this.name}}</div>
+                        <div class="speciality dentist2 " data-speciality="{{this.speciality}}">{{this.speciality}}</div> 
+                    </div>
+                    {{/each}}
+
+                </div>
+            </div> 
+        </div>
+    </section>
+
+
+    <section class="news">
+        <div class="container">
+            
+            <h2 class="title2">News</h2>
+
+            <div class="article">
+                <a href="/news" class="title-article1"><img class="image" src="/img/image.jpg" alt="Image"></a>
+                <a href="/news" class="title-article">
+                    <p class="title-article-text">Hue Central Hospital pilot implementation of stay notification through ASM software</p>
+                </a>
+            </div>
+   
+                <div class="row">
+                    {{#each news}}
+                    <div class="col-sm-6 col-lg-4 card-item">
+                        <div class=" card1 card-top-item">
+                            <a href="/{{this.slug}}"><img class="card-img-top" src="{{this.image}}" alt="Card image cap"></a>
+                            <div class="card-body">
+                                <h5><a href="/{{this.slug}}" class="card-title">{{this.title}}</a></h5>
+                                <p class="card-text">{{this.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                
+            </div>
+    </section>
+
+    <section class="healthadvice">
+    <div class="container">
+        <h2 class="title2 hospital">Health advice</h2>
+                
+                <div class="card-group">
+                    {{#each domains}}
+                    <div class="card">
+                        <a href="/{{this.slug}}"><img class="card-img-top1" src="{{this.image}}" alt="Card image cap"></a>
+                        <div class="card-body">
+                            <h5><a href="/{{this.slug}}" class="card-title">{{this.title}}</a></h5>
+                            {{!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> --}}
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                
+        
+    </div>
+    </section>
+
+    <section class="huehospital">
+        <div class="container container-hospital">
+            <h2 class="title2 title-name-hospital">Hospitals in Hue</h2>
+                <div class="row1">
+                    {{#each hospitals}}
+                    <div class="hospital">
+                        <img class="hospital-image" src="{{this.image}}" alt="Generic placeholder image" width="250" height="200">
+                        <h6 class="hospital-name">{{this.title}}</h6>
+                    </div>
+                    {{/each}}
+                </div>
+        </div>
+    </div>
+    </section>
+    
+    
+  
+         
+<div id="webchat" class="webchat"/>
+
+<script>
+   
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById("searchInput");
+        const doctors = document.querySelectorAll(".doctor");
+        const specialities = document.querySelectorAll(".speciality");
+        const cardboxs = document.querySelectorAll(".card-box");
+
+        searchInput.addEventListener("input", (e) => {
+                const value = e.target.value.toLowerCase();
+                if (value === "") {
+                    // If the search input is empty, hide all doctors and specialities
+                    cardboxs.forEach((cardbox) => cardbox.classList.add("hide"));
+                } else {
+                    for (let i = 0; i < doctors.length; i++) {
+                        const doctorName = doctors[i].dataset.name.toLowerCase();
+                        const doctorSpeciality = specialities[i].dataset.speciality.toLowerCase();
+
+                        const isVisible = doctorName.includes(value) || doctorSpeciality.includes(value);
+
+                        cardboxs[i].classList.toggle("hide", !isVisible);
+                    }
+                }
+        });
+
+    })
+
+
+!(function () {
+ 
+  //console.log(ss)
+  //var ss =document.getElementById("cc").getAttribute("lang");
+
+  let e = document.createElement("script"),
+    t = document.head || document.getElementsByTagName("head")[0];
+  (e.src =
+    "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+    // Replace 1.x.x with the version that you want
+    (e.async = !0),
+    (e.onload = () => {
+      window.WebChat.default(
+        {
+             
+          customData: { language: "en" },
+          initPayload: "/greet",
+          socketUrl: "http://localhost:5005",
+          // add other props here
+        },
+        null
+      );
+    }),
+    t.insertBefore(e, t.firstChild);
+     localStorage.clear()
+})();
+
+
+
+</script>

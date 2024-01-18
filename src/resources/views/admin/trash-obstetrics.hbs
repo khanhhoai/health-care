@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="mt-4">
+      <div>
+        <a href="/admin/stored/obstetric"> News List</a>
+        <h3>My deleted articles (Obstetric)</h3>
+      </div>  
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col"></th>
+                <th scope="col">Article name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Author</th>
+                <th scope="col">Description</th>
+                <th scope="col">Detail description</th>
+                <th scope="col col">Delete at</th>
+                <th></th> 
+                </tr>
+            </thead>
+            <tbody>
+                {{#each obstetrics}}
+                <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.title}}</td>
+                <td>{{this.image}}</td>
+                <td>{{this.author}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.detaildescription}}</td>
+                <td>{{this.createAt}}</td>
+                <td>
+                    <a href="" class="btn btn-link btn-restore text-decoration-none" data-id="{{this._id}}">Restore</a><br>
+                    <a href="" class="btn btn-link text-decoration-none" data-toggle="modal"  data-target="#delete-obstetric-modal" data-id="{{this._id}}">Empty trash</a>
+                </td>
+                </tr>
+                {{else}}
+                <tr>
+                  <td colspan="5" class="text-center">
+                    Trash is empty.
+                    <a href="/admin/stored/obstetric">News List</a>
+                  </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="delete-obstetric-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete article?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>This action can't restore. Are you sure you would like to delete this article?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="btn-delete-obstetric" type="button" class="btn btn-danger" >Delete</button>
+      
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form name= "delete-obstetric-form" method="POST" ></form>
+<form name= "restore-obstetric-form" method="POST"></form>
+<script>
+
+document.addEventListener('DOMContentLoaded', function(){
+    var obstetricId
+    var deleteForm = document.forms['delete-obstetric-form'];
+    var restoreForm = document.forms['restore-obstetric-form'];
+    var btnDeleteObstetric= document.getElementById('btn-delete-obstetric')
+    var restoreBtn = $('.btn-restore')
+
+    $('#delete-obstetric-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) 
+          obstetricId = button.data('id') 
+      })
+   
+    btnDeleteObstetric.onclick = function () {
+                            deleteForm.action = '/obstetric/' + obstetricId + '/force?_method=DELETE';
+                            deleteForm.submit();
+                        };
+
+    restoreBtn.click(function (e) {
+      e.preventDefault();
+
+      var obstetricId = $(this).data('id');
+
+      restoreForm.action = '/obstetric/' + obstetricId + '/restore?_method=PATCH';
+      restoreForm.submit();
+      })
+    })
+
+
+</script>

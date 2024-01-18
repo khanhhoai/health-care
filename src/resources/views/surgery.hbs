@@ -1,0 +1,35 @@
+  <div class="container">
+
+      <h1 class="heading-1">SURGERY</h1>
+      <div class="sub-heading">
+        
+      </div>
+                <div class="row">
+                    {{#each surgerys}}
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card1 card-top-item">
+                            <a href="/surgery/{{this.slug}}"><img class="card-img-top" src="{{this.image}}" alt="Card image cap"></a>
+                            <div class="card-body">
+                              <h5><a href="/surgery/{{this.slug}}" class="card-title">{{this.title}}</a></h5>
+                                <p class="card-text" data-surgery="{{this.description}}">{{this.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                
+            </div>
+  </div>
+
+<script>
+    // Get all elements with the class "card-text"
+    const cardTextElements = document.querySelectorAll(".card-text");
+    
+    // Loop through each element
+    cardTextElements.forEach((element) => {
+        // Get the value of the data-surgery attribute
+        const surgeryDescription = element.getAttribute("data-surgery");
+        
+        // Set the content of the element to the value of the data-surgery attribute
+        element.textContent = surgeryDescription;
+    });
+</script>

@@ -1,0 +1,83 @@
+<script src="https://cdn.tiny.cloud/1/neb5s000y4p5qfvfo9mneq7pegvnk02gllai6dn75zzw2f9c/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+<div class="container">
+    <div class="mt-4">
+        <h2>Upload doctor</h2>
+        <form method="POST" action="/doctor/store">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name">
+            
+            </div>
+            <div class="form-group">
+                <label for="speciality">Speciality</label>
+                <input type="text" class="form-control" id="speciality" name="speciality">
+            
+            </div>
+            {{!-- <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description"></textarea>
+            
+            </div> --}}
+            <div class="form-group">
+                <label for="tel">Tel</label>
+                <input type="text" class="form-control" id="tel" name="tel">
+            
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="text" class="form-control" id="image" name="image">
+            
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea class="form-control " id="address" name="address"></textarea>
+            
+            </div>
+             <div class="form-group">
+                <label for="map">Map</label>
+                <input type="text" class="form-control" id="map1" name="map">
+            
+            </div>
+
+            <div class="form-group">
+                <label for="schedule">Schedule</label>
+                <input type="text" class="form-control" id="schedule" name="schedule">
+            
+            </div>
+
+            <div class="form-group">
+                <label for="presentation">Presentation</label>
+                <textarea class="form-control description " id="presentation" name="presentation"></textarea>
+            
+            </div>
+
+           
+            
+        
+            <button type="submit" class="btn">Create</button>
+        </form>
+    </div>
+</div>
+
+ <script>
+     tinymce.init({
+      selector: 'textarea',
+       plugins:[
+        'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
+        'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 
+        'table', 'emoticons', 'template', 'codesample'
+    ],
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat' + 
+    'link image | print preview media fullscreen | ' +
+    'forecolor backcolor emoticons',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+      mergetags_list: [
+        { value: 'First.Name', title: 'First Name' },
+        { value: 'Email', title: 'Email' },
+      ],
+      ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
+    });
+  </script>
+

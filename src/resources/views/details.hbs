@@ -1,0 +1,102 @@
+
+<div class="container">
+    <div class="row g-0 bg-body-secondary position-relative">
+        
+        <div class="col-md-6 mb-md-0  image-color">
+        <img src="{{doctors.image}}" class="rounded-circle  img-fluid float-left doctor-image" 
+            width="200" height="200" alt="...">
+           </div> 
+            <div class="col-md-6 p-4 image-color">
+                <h5 class="card4"></h5>
+                <h6>{{doctors.name}}</h6>
+                <p>{{doctors.speciality}}</p>
+            </div>
+ 
+    <section class="detailpage1">
+        <ul id="menu" class="open">
+            <li><a href="#map"class="font-color">Map</a></li>
+            <li><a href="#presentation" class="font-color">Presentation</a></li>
+            <li><a href="#schedule" class="font-color">Schedule</a></li>
+        </ul>
+    </section>
+    
+    <section class="detailpage detail-more" id="map1">
+        <h6 class="font-show">
+        <ion-icon name="map-outline"></ion-icon> Map:
+        </h6>
+ 
+        <div class="detailmap" data-address="{{doctors.address}}">
+            <p>{{doctors.address}}</p>
+        </div>
+        <div id="map" data-map="{{doctors.map}}" class="map"></div>
+    </section>
+
+    <section class="detailpage" id="presentation">
+        <h6 class="font-show"><ion-icon name="document-text-outline"></ion-icon> Presentation:</h6>
+        
+        <div class="detailpre">
+            <p class="detailpresentation" data-presentation="{{doctors.presentation}}">{{doctors.presentation}}<p>
+        </div>
+       
+    </section>
+
+    <section class="detailpage" id="schedule">
+        <h6 class="font-show"><ion-icon name="time-outline"></ion-icon> Schedule:</h6>
+        
+        <div class="detailschedule">
+            <p>Time open: {{doctors.schedule}}</p>
+            <p>Contact: {{doctors.tel}}</p>
+        </div>
+        </section>
+     </div>
+</div>
+
+
+<script>
+    // PRESENTATION
+    const detailpresentations = document.querySelectorAll(".detailpresentation");
+      
+    // Loop through each element with the class "detailpresentation"
+    detailpresentations.forEach((element) => {
+    // Get the value of the data-presentation attribute
+    const presentation = element.dataset.presentation;
+        
+    // Example: Manipulate the content of each element
+    element.innerHTML = presentation;
+    return element.textContent || element.innerText || '';
+    });
+
+
+    //ADDRESS
+    const detailmaps = document.querySelectorAll(".detailmap");
+    
+    // Loop through each element with the class "detailpresentation"
+    detailmaps.forEach((element) => {
+    // Get the value of the data-presentation attribute
+    const detailAddress = element.dataset.address;
+        
+    // Example: Manipulate the content of each element
+    element.innerHTML = detailAddress;
+    return element.textContent || element.innerText || '';
+    });
+
+
+
+
+
+    //MAP
+    const maps = document.querySelectorAll('.map');
+    maps.forEach((element) => {
+        const mapCoordinate = element.dataset.map;
+        const [lat, lng] = mapCoordinate.split(',').map(parseFloat);
+        var map = L.map('map').setView([lat, lng], 13);
+        
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    maxZoom: 19,
+	//attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        L.marker([lat, lng]).addTo(map);
+       
+    })
+
+</script>

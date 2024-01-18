@@ -1,0 +1,48 @@
+  <div class="container">
+
+      <h1 class="heading-1">PEDIATRIC</h1>
+      <div class="sub-heading">
+        
+      </div>
+    
+
+    <div class="main">
+      <div class="home">
+        <div class="left">
+          
+
+          <h2 class="heading-2">
+            {{pediatrics.title}}
+          </h2>
+          <p class="home-img"><span>{{pediatrics.createAt}}</span></p>
+          <img src="{{pediatrics.image}}" class="home-img" alt="Paper photo">
+        </div>
+
+        
+      </div>
+               
+      <div>
+        <p class="pediatric" data-pediatric="{{pediatrics.detaildescription}}">{{pediatrics.detaildescription}}</p>
+
+      </div>
+      <p><strong>{{pediatrics.author}}</strong></p>
+    </div>
+  </div>
+
+  
+
+  <script>
+    // detaildescription
+    const pediatrics = document.querySelectorAll(".pediatric");
+      
+    // Loop through each element with the class "pediatric"
+    pediatrics.forEach((element) => {
+    // Get the value of the data-presentation attribute
+    const pediatric = element.dataset.pediatric;
+    // Example: Manipulate the content of each element
+    element.innerHTML = pediatric;
+    return element.textContent || element.innerText || '';
+    });
+</script>
+
+
